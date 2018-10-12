@@ -36,6 +36,9 @@ The quick start:
 - about Ninja (not Gyp or GN): https://ninja-build.org/manual.html#_using_ninja_for_your_project
 - about Gyp (not Ninja or GN): https://gyp.gsrc.io/docs/UserDocumentation.md
 - Gyp to GN cookbook: https://chromium.googlesource.com/chromium/src/tools/gn/+/48062805e19b4697c5fbd926dc649c78b6aaa138/docs/cookbook.md
+- Good GN installation notes: https://github.com/mmotorny/build#instructions-for-windows
+- Interesting MSVC reference: https://chromium.googlesource.com/chromium/src/build/config/+/master/win/BUILD.gn#231
+
 
 The `gn` binary does not ship with toolchain config. This is a clone of a standalone version (`gn-build`) above:
 
