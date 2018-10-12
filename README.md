@@ -104,6 +104,48 @@ or:
     gn desc out/Default
 
 
+## Building release
+
+Configure like this:
+
+```
+$ gn gen out/Release --args='visual_studio_version="2017" is_official_build=true'
+Done. Made 3 targets from 17 files in 2731ms
+```
+
+Note that this could be `is_debug=false` -- "is_official_build" is explained better 
+in `gn args --list out/Default`:
+
+```
+is_official_build
+    Current value (from the default) = false
+      From //build/config/BUILDCONFIG.gn:131
+
+    Set to enable the official build level of optimization. This has nothing
+    to do with branding, but enables an additional level of optimization above
+    release (!is_debug). This might be better expressed as a tri-state
+    (debug, release, official) but for historical reasons there are two
+    separate flags.
+```
+
+
+build:
+
+```
+$ ninja -C out/Release
+```
+
+Results with debug and release:
+
+```
+$ find out/ -name "*.exe" | xargs ls -lh
+-rwxr-xr-x 1 user 1049089 1000K Oct 12 21:10 out/Default/demo.exe
+-rwxr-xr-x 1 user 1049089  1.7M Oct 12 21:10 out/Default/hello_win.exe
+-rwxr-xr-x 1 user 1049089  127K Oct 12 21:14 out/Release/demo.exe
+-rwxr-xr-x 1 user 1049089  213K Oct 12 21:14 out/Release/hello_win.exe
+```
+
+
 ## Other notes
 
 If you don't do `gn args <builddir>` it will (on my current system) fail to find
