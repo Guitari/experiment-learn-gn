@@ -1,0 +1,8 @@
+# visual_studio_version = "2017"
+
+group("root") {
+  deps = [
+    "//src:demo",
+  ]
+}
+
