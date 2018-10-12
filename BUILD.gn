@@ -2,7 +2,7 @@
 
 group("root") {
   deps = [
-    "//src:demo",
+    "//src/hello_console:demo",
   ]
 }
 
