@@ -3,9 +3,6 @@
 #include <windows.h>
 #include <iostream>
 
-// CHEAT: I can't figure out how to add the lib to BUILD.gn
-#pragma comment(lib,"user32.lib") 
-
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	PWSTR pCmdLine, int nCmdShow);
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,

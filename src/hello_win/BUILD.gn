@@ -5,6 +5,9 @@
 #   precompiled_header = "precompile.h"
 #   precompiled_source = "//precompile.cc"
 # }
+config("user32") {
+  libs = [ "user32.lib"]
+}
 
 executable("hello_win") {
   sources = [
@@ -25,6 +28,7 @@ executable("hello_win") {
     "//build/config/win:sdk_link",
     "//build/config/win:common_linker_setup",
     "//build/config/win:static_crt",
+    ":user32"
     # "//build/config:default_libs",
     # "//build/config/win:lean_and_mean",
     # "//build/config/win:default_crt",
