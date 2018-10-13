@@ -1,4 +1,4 @@
-executable("demo") {
+executable("hello_console") {
   sources = [
     "main.c",
   ]
