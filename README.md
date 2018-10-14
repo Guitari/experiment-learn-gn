@@ -229,6 +229,35 @@ Finished generating code
 -rwxr-xr-x 1 andrew.ellerton 1049089  213K Oct 13 10:21 out/Release/hello_win.exe
 ```
 
+## Debugging with Visual Studio
+
+GN can build studio `sln` files, as noted on the [Skia build docs][2] at "Visual Studio Solutions":
+
+> If you use Visual Studio, you may want to pass --ide=vs to bin/gn gen to generate all.sln
+
+You can also debug an exe in Visual Studio by doing File > Open then choosing the exe directly.
+Read the MSDN docs on ["how to debug an executable"][3].
+
+## Using CMake and CLion
+
+The [Skia build docs][2] note that CMake files can be generated "mainly for use with IDEs that
+like CMake project descriptions" and that this "is not meant for any purpose beyond development":
+
+    bin/gn gen out/config --ide=json --json-ide-script=../../gn/gn_to_cmake.py
+
+That should do the job for opening the project in CLion.
+
+The `gn_to_cmake.py` script is particular to Skia it seems (it was mentioned in the Skia docs, after all),
+so in my particular case the command was;
+
+     gn gen out/config \
+       --ide=json \
+       --json-ide-script=/c/dev/tp/skia/gn/gn_to_cmake.py \
+       --args='visual_studio_version="2017"'
+
+It loaded in CLion, built and ran, but was a little quirky. All the code is there, so perhaps
+its a matter of refining that conversion script.
+
 ## Other notes
 
 If you don't do `gn args <builddir>` it will (on my current system) fail to find
@@ -253,4 +282,6 @@ index cf6d1ed..05fa8f1 100644
 
 
 [1]: https://chromium.googlesource.com/chromium/src/tools/gn/+/48062805e19b4697c5fbd926dc649c78b6aaa138/docs/quick_start.md
+[2]: https://skia.org/user/build
+[3]: https://docs.microsoft.com/en-us/visualstudio/debugger/how-to-debug-an-executable-not-part-of-a-visual-studio-solution?view=vs-2017
 
