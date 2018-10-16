@@ -1,0 +1,22 @@
+declare_args() {
+  googletest_root_dir = "/c/dev/tp/googletest"
+}
+
+config("googletest") {
+  # TODO: how to set this dir from outside? declare_arg?
+  # googletest_lib_dir = googletest_root_dir + "/lib"
+  googletest_lib_dir = "$googletest_root_dir/lib"
+  if (is_debug) {
+    libs = [
+      googletest_lib_dir + "/Debug/gmockd.lib"
+    ]
+  } else {
+    libs = [
+      googletest_lib_dir + "/Release/gmock.lib"
+    ]
+  }
+  include_dirs = [
+    googletest_root_dir + "/googletest/include",
+    googletest_root_dir + "/googlemock/include",
+  ]
+}

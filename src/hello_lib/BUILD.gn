@@ -1,0 +1,17 @@
+static_library("hello_lib") {
+  sources = [
+    "hello_lib.h",
+    "hello_lib.cpp",
+  ]
+}
+
+executable("hello_lib_tests") {
+  sources = [
+    "test_hello_lib.cpp",
+  ]
+  configs += [
+    "//third_party/googletest:googletest",
+    # ":googletest-main",
+  ]
+}
+
