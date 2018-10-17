@@ -5,13 +5,17 @@ static_library("hello_lib") {
   ]
 }
 
-executable("hello_lib_tests") {
+executable("test_hello_lib") {
   sources = [
     "test_hello_lib.cpp",
   ]
+  deps = [
+    ":hello_lib",
+  ]
   configs += [
+    "//build/config/win:common_linker_setup",
+    "//build/config/win:static_crt",
     "//third_party/googletest:googletest",
-    # ":googletest-main",
+    "//third_party/googletest:googletest-main",
   ]
 }
-

@@ -1,22 +1,55 @@
 declare_args() {
-  googletest_root_dir = "/c/dev/tp/googletest"
+  googletest_dir = ""  # "/c/dev/tp/googletest"
+}
+
+config("googletest-setup") {
+  # TODO: how to set this dir from outside? declare_arg?
+  # googletest_lib_dir = googletest_dir + "/lib"
+  if (is_debug) {
+    lib_dirs = [
+      "$googletest_dir/out/x64/lib/Debug"
+    ]
+  } else {
+    lib_dirs = [
+      "$googletest_dir/out/x64/lib/Release"
+    ]
+  }
 }
 
 config("googletest") {
-  # TODO: how to set this dir from outside? declare_arg?
-  # googletest_lib_dir = googletest_root_dir + "/lib"
-  googletest_lib_dir = "$googletest_root_dir/lib"
+  if (googletest_dir != "") {
+    print("googletest_dir: $googletest_dir")
+  }
+  configs = [
+    ":googletest-setup",
+  ]
   if (is_debug) {
     libs = [
-      googletest_lib_dir + "/Debug/gmockd.lib"
+      "gmockd.lib"
     ]
   } else {
     libs = [
-      googletest_lib_dir + "/Release/gmock.lib"
+      "gmock.lib"
     ]
   }
   include_dirs = [
-    googletest_root_dir + "/googletest/include",
-    googletest_root_dir + "/googlemock/include",
-  ]
+    "$googletest_dir/googletest/include",
+    "$googletest_dir/googlemock/include",
+  ] 
 }
+
+config("googletest-main") {
+  configs = [
+    ":googletest-setup",
+  ]
+  if (is_debug) {
+    libs = [
+      "gtest_maind.lib"
+    ]
+  } else {
+    libs = [
+      "gtest_main.lib"
+    ]
+  }
+}
+

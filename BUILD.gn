@@ -8,14 +8,10 @@ group("root") {
   ]
 }
 
-if (is_win) {
-  # ?
-}
-
 group("tests") {
   testonly = true
   deps = [
-    "//src/hello_lib:hello_lib_tests",
+    "//src/hello_lib:test_hello_lib",
   ]
 }
 

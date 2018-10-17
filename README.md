@@ -82,7 +82,9 @@ To change that config, you need to set the args.
 
 One way is this:
 
-    gn gen out/Debug --args='visual_studio_version="2017" is_debug=true'
+    gn gen out/Debug --args='visual_studio_version="2017" is_debug=true googletest_dir="C:/dev/tp/googletest"''
+
+(For googletest, see [Dependencies](#dependencies) below.)
 
 In other words:
 
@@ -90,6 +92,7 @@ In other words:
 - build everything under the dir `out/Debug`
 - override the arg for Visual Studio version to be "2017" (the double quotes mean string)
 - set debug mode to true.
+- set the base directory for `googletest`
 
 Another way is to use `gn args`:
 
@@ -278,6 +281,37 @@ index cf6d1ed..05fa8f1 100644
    # Use "2013" for Visual Studio 2013.
 -  visual_studio_version = "2013"
 +  visual_studio_version = "2017"
+```
+
+## Dependencies
+
+At the time of writing I've decided that dependencies should be built outside of this repo. Other `gn` users (Chrome, Skia) tend to put all dependencies as git submodules under say `third_party`. Maybe I'll do that one day. For now, they're external.
+
+### googletest
+
+I'm building on 64-bit windows. I cloned `googletest` to `c:\dev\tp\googletest`. In a Studio cmd window:
+
+```
+cd c:\dev\tp\googletest
+mkdir out out\x64
+cd out\x64
+cmake ..\.. -G "Visual Studio 15 2017 Win64"
+```
+
+Then manually add this to studio preprocessor defines for debug mode targets:
+
+```
+_ITERATOR_DEBUG_LEVEL=0
+```
+
+Maybe there is a better way to do that.
+
+Then do a batch build for release and debug, all targets, in Visual Studio.
+
+Configuring the project then:
+
+```
+$ gn gen out/Foo  --args='visual_studio_version="2017" is_debug=true googletest_dir="C:/dev/tp/googletest"'
 ```
 
 
