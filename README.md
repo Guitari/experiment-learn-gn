@@ -12,6 +12,45 @@ I may have to revisit this choice. I think the only reason they would be
 needed is for debugging. Maybe there's a way to do that in studio/xcode
 without using the native project, dunno.
 
+## Build and run
+
+Once everything is set up (see below), configuring, building and running is:
+
+```
+$ gn gen out/Foo  --args='visual_studio_version="2017" is_debug=true googletest_dir="C:/dev/tp/googletest"'
+googletest_dir: C:/dev/tp/googletest
+Done. Made 6 targets from 19 files in 2871ms
+
+$ ninja -C out/Foo
+ninja: Entering directory `out/Foo'
+[1/10] CC obj/src/hello_console/hello_console/main.obj
+[2/10] CXX obj/src/hello_lib/hello_lib/hello_lib.obj
+[3/10] LIB obj/src/hello_lib/hello_lib.lib
+[4/10] CXX obj/src/hello_win/hello_win/main.obj
+[5/10] CXX obj/src/hello_lib/test_hello_lib/test_hello_lib.obj
+[6/10] LINK hello_console.exe hello_console.exe.pdb
+[7/10] LINK hello_win.exe hello_win.exe.pdb
+[8/10] STAMP obj/root.stamp
+[9/10] LINK test_hello_lib.exe test_hello_lib.exe.pdb
+[10/10] STAMP obj/tests.stamp
+
+$ ./out/Foo/test_hello_lib.exe
+Running main() from c:\dev\tp\googletest\googletest\src\gtest_main.cc
+[==========] Running 2 tests from 1 test case.
+[----------] Global test environment set-up.
+[----------] 2 tests from FactorialTest
+[ RUN      ] FactorialTest.HandlesZeroInput
+[       OK ] FactorialTest.HandlesZeroInput (0 ms)
+[ RUN      ] FactorialTest.HandlesPositiveInput
+[       OK ] FactorialTest.HandlesPositiveInput (0 ms)
+[----------] 2 tests from FactorialTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test case ran. (0 ms total)
+[  PASSED  ] 2 tests.
+```
+
+
 ## Initial setup steps
 
 I initially used `gn` from the Skia build I had. That worked fine, but below is how to set
