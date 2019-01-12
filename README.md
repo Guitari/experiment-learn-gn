@@ -56,7 +56,7 @@ Running main() from c:\dev\tp\googletest\googletest\src\gtest_main.cc
 I initially used `gn` from the Skia build I had. That worked fine, but below is how to set
 it up from scratch.
 
-Install old school Python 2.7 and ensure it is ready to go. On Windows, use either CMD or Cygwin/bash-here etc:
+Install old school Python 2.7 and ensure it is ready to go. On Windows, I recommend making sure it works in CMD first, and once it's all solid, if you want, move to git-bash or other shell:
 
     $ python -V
     Python 2.7.15
@@ -71,6 +71,7 @@ e.g.
 
 The following is from `gn/README.md`, which also states that (on Windows) C++ (i.e. Visual Studio) needs to be in the PATH, so run from a Studio CMD window:
 
+    # Building gn needs this:
     python build/gen.py
     ninja -C out
     # To run tests:
@@ -86,7 +87,7 @@ Put GN in PATH, e.g.:
 
 Interestingly, in the Studio-CMD window, Ninja was in the PATH under `CommonExtensions/Microsoft/CMake/Ninja`. I can't remember if that was me or not.
 
-On Cygwin/git-bash I needed to add it explicitly, but it could detect Studio.
+On Cygwin/git-bash I needed to add it explicitly, but it _could_ detect Studio.
 
 Read these to get your brain into GN and Ninja:
 
@@ -111,12 +112,12 @@ My clone of that:
 To get that, I did:
 
     git init  # if it hasn't been done already
-    git submodule add git@home-github.com:aellerton/gn-build.git build
+    git submodule add git@github.com:aellerton/gn-build.git build
     git submodule update --init --recursive
 
-(The `home-github` this is for my ssh config. Make it `github` for yours, probably.)
+(You can use https://github.com/timniederhausen/gn-build or your own clone for the submodule.)
 
-By default that uses Visual Studio 2013. I have 2017 at the time of writing.
+By default, that particular toolchain uses Visual Studio 2013. I have 2017 at the time of writing.
 To change that config, you need to set the args.
 
 One way is this:
@@ -141,12 +142,15 @@ $ gn args out/Debug
 
 An editor will pop up. Add the below:
 
+```
 visual_studio_version = "2017"
 ```
 
 Then project files are built in `out/Debug`:
 
-    gn gen out/Debug
+```
+gn gen out/Debug
+```
 
 Build in one line:
 
@@ -166,7 +170,6 @@ $ ninja
 
 $ ./demo.exe
 Hello, 1 args
-
 ```
 
 Clean is like this:
