@@ -14,4 +14,3 @@ group("tests") {
     "//src/hello_lib:test_hello_lib",
   ]
 }
-

@@ -1,5 +1,5 @@
 declare_args() {
-  googletest_dir = ""  # "/c/dev/tp/googletest"
+  googletest_dir = ""  # e.g.: "/c/dev/tp/googletest"
 }
 
 config("googletest-setup") {
